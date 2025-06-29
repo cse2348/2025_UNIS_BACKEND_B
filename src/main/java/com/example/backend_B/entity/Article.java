@@ -16,9 +16,10 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
     private String content;
+    private String author; // 작성자명 받을 필드
+    private int views; // 조회수 받을 필드/
 
     public void patch(Article article) {
         if (article.title != null) {
@@ -26,6 +27,9 @@ public class Article {
         }
         if (article.content != null) {
             this.content = article.content;
+        }
+        if (article.author != null) {
+            this.author= article.author;
         }
     }
 }
