@@ -5,6 +5,8 @@
         <th scope="col">Id</th>
         <th scope="col">Title</th>
         <th scope="col">Content</th>
+        <th scope="col">Author</th>
+        <th scope="col">Views</th>
     </tr>
     </thead>
     <tbody>
@@ -13,6 +15,8 @@
             <th>{{id}}</th>
             <td><a href="/articles/{{id}}">{{title}}</a></td>
             <td>{{content}}</td>
+            <td>{{author}}</td>
+            <td>{{views}}</td>
         </tr>
     {{/articleList}}
     </tbody>
