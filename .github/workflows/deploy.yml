@@ -2,7 +2,7 @@ name: Deploy to EC2  # 이 워크플로우의 이름. GitHub Actions 탭에 표�
 
 on:
   push:
-    branches: [ "master" ]  # main 브랜치에 push될 때만 이 워크플로우가 실행됨
+    branches: [ "master" ]  #main 브랜치에 push될 때만 이 워크플로우가 실행됨
 
 jobs:
   deploy:
