@@ -53,6 +53,11 @@ public class ArticleController {
         log.info("id = " + id); // id를 잘 받았는지 확인하는 로그 찍기
         // 1. id를 조회해 데이터 가져오기
         Article articleEntity = articleRepository.findById(id).orElse(null);
+
+        if (articleEntity != null) {// 잘 가져왔다면~
+            articleEntity.increaseViews();
+            articleRepository.save(articleEntity); //저장
+        }
         List<CommentDto> commentsDtos = commentService.comments(id);
         // 2. 모델에 데이터 등록하기
         model.addAttribute("article", articleEntity);

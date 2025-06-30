@@ -19,7 +19,8 @@ public class Article {
     private String title;
     private String content;
     private String author; // 작성자명 받을 필드
-    private int views; // 조회수 받을 필드/
+    private int views = 0 ; //db에 저장되는값은 null없이 0부터 시작하게...
+
 
     public void patch(Article article) {
         if (article.title != null) {
@@ -31,5 +32,9 @@ public class Article {
         if (article.author != null) {
             this.author= article.author;
         }
+    }
+
+    public void increaseViews() {
+        this.views+= 1;
     }
 }
