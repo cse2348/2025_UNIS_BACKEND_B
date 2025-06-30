@@ -58,10 +58,3 @@ jobs:
               -p 8080:8080 \
               228041307119.dkr.ecr.ap-northeast-2.amazonaws.com/backend-b-repo:latest
             
-            docker stop app || true && docker rm app || true
-            docker pull 228041307119.dkr.ecr.ap-northeast-2.amazonaws.com/backend-b-repo:latest
-            docker run -d \
-              --name app \
-              --env-file .env \
-              -p 8080:8080 \
-              228041307119.dkr.ecr.ap-northeast-2.amazonaws.com/backend-b-repo:latest
