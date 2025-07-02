@@ -53,6 +53,13 @@ public class ArticleController {
         log.info("id = " + id); // id를 잘 받았는지 확인하는 로그 찍기
         // 1. id를 조회해 데이터 가져오기
         Article articleEntity = articleRepository.findById(id).orElse(null);
+
+        if (articleEntity != null) {
+            // 조회수 1 증가 후 저장
+            articleEntity.incrementViews();
+            articleRepository.save(articleEntity);
+        }
+
         List<CommentDto> commentsDtos = commentService.comments(id);
         // 2. 모델에 데이터 등록하기
         model.addAttribute("article", articleEntity);
@@ -91,7 +98,8 @@ public class ArticleController {
         Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
         // 2-2. 기존 데이터 값을 갱신하기
         if (target != null) {
-            articleRepository.save(articleEntity); // 엔티티를 DB에 저장(갱신)
+            target.patch(articleEntity);  // 수정된 필드만 갱신하도록 변경
+            articleRepository.save(target);
         }
         // 3. 수정 결과 페이지로 리다이렉트하기
         return "redirect:/articles/" + articleEntity.getId();

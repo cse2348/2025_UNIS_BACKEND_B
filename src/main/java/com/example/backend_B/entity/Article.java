@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +20,21 @@ public class Article {
 
     private String title;
     private String content;
+    private String author;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    private int views = 0;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    // 조회수 증가 메서드 추가
+    public void incrementViews() {
+        this.views++;
+    }
 
     public void patch(Article article) {
         if (article.title != null) {
@@ -26,6 +42,9 @@ public class Article {
         }
         if (article.content != null) {
             this.content = article.content;
+        }
+        if (article.author != null) {
+            this.author = article.author;
         }
     }
 }
