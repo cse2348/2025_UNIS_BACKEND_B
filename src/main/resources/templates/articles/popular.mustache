@@ -1,12 +1,5 @@
 {{>layouts/header}}
-<!-- 드롭다운 추가 -->
-<form method="get" action="/articles" class="mb-3">
-    <label for="sort">정렬:</label>
-    <select name="sort" id="sort" onchange="this.form.submit()">
-        <option value="createdAt" {{#isCreatedSort}}selected{{/isCreatedSort}}>생성순</option>
-        <option value="views" {{#isViewSort}}selected{{/isViewSort}}>조회순</option>
-    </select>
-</form>
+<h2>🔥 인기 게시글 Top 5</h2>
 <table class="table">
     <thead>
     <tr>
