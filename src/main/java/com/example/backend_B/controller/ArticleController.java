@@ -96,7 +96,8 @@ public class ArticleController {
         Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
         // 2-2. 기존 데이터 값을 갱신하기
         if (target != null) {
-            articleRepository.save(articleEntity); // 엔티티를 DB에 저장(갱신)
+            target.patch(articleEntity);  // 수정된 필드만 갱신하도록 변경
+            articleRepository.save(target);
         }
         // 3. 수정 결과 페이지로 리다이렉트하기
         return "redirect:/articles/" + articleEntity.getId();
