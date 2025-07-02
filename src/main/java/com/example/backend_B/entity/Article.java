@@ -24,11 +24,12 @@ public class Article {
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
-    private int views = 0;
+    private int views;
 
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
+        this.views = 0;
     }
 
     // 조회수 증가 메서드 추가

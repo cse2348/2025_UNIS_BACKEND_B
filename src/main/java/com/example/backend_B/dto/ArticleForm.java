@@ -13,6 +13,6 @@ public class ArticleForm {
     private String author; // 작성자 필드
 
     public Article toEntity() {
-        return new Article(id, title, content, author, null);
+        return new Article(id, title, content, author, null,0);
     }
 }
