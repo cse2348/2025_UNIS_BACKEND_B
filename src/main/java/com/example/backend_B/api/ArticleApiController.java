@@ -25,8 +25,9 @@ public class ArticleApiController {
     // 🔹 인기 게시글 상위 5개 조회 (추가된 API)
     @GetMapping("/api/popular")
     public List<Article> getPopularArticles() {
-        return articleRepository.findTop5ByOrderByViewsDesc();
+        return articleService.getPopularArticles();
     }
+
 
     // GET: 전체 목록
     @GetMapping("/api/articles")
