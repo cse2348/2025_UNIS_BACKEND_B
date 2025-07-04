@@ -24,6 +24,7 @@ public class Article {
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
     private int views;
 
     @PrePersist
@@ -32,20 +33,13 @@ public class Article {
         this.views = 0;
     }
 
-    // 조회수 증가 메서드 추가
     public void incrementViews() {
         this.views++;
     }
 
     public void patch(Article article) {
-        if (article.title != null) {
-            this.title = article.title;
-        }
-        if (article.content != null) {
-            this.content = article.content;
-        }
-        if (article.author != null) {
-            this.author = article.author;
-        }
+        if (article.title != null) this.title = article.title;
+        if (article.content != null) this.content = article.content;
+        if (article.author != null) this.author = article.author;
     }
 }

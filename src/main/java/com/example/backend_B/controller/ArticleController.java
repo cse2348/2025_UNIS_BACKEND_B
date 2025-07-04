@@ -119,4 +119,14 @@ public class ArticleController {
         // 3. 결과 페이지로 리다이렉트하기
         return "redirect:/articles";
     }
+    @GetMapping("/articles/popular")
+    public String popular(Model model) {
+        // 1. 5개의 데이터 가져오기
+        List<Article> articleEntityList;
+        articleEntityList = articleRepository.findTop5ByOrderByViewsDesc();
+        // 2. 모델에 데이터 등록하기
+        model.addAttribute("articleList", articleEntityList);
+        // 3. 뷰 페이지 설정하기
+        return "articles/popular";
+    }
 }
