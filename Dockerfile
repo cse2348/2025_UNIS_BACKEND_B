@@ -4,7 +4,7 @@ FROM openjdk:17
 
 # 2. build/libs 폴더 아래 있는 .jar 파일을 JAR_FILE이라는 변수로 정의
 # -> Gradle 빌드 시 JAR이 이 경로에 생성됨
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE
 
 # 3. 위에서 정의한 JAR 파일을 app.jar 라는 이름으로 컨테이너에 복사
 # -> 이미지 내부에 jar 파일을 포함시켜야 실행 가능함
