@@ -59,7 +59,7 @@ public class ArticleApiController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    // DELETE: 게시글 삭제
+    //DELETE: 게시글 삭제
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Article> delete(@PathVariable Long id) {
         Article deleted = articleService.delete(id);
