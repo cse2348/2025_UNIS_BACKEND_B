@@ -3,6 +3,7 @@ package com.example.backend_B.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -10,7 +11,9 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Entity
-public class Post {
+public class Post implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
