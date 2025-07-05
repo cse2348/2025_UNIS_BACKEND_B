@@ -35,11 +35,15 @@ public class ArticleApiController {
         return articleService.index();
     }
 
-    // GET: 단일 게시글
+    // GET: 단일 게시글 (Redis 캐시 적용됨)
     @GetMapping("/api/articles/{id}")
-    public Article show(@PathVariable Long id) {
-        return articleService.show(id);
+    public ResponseEntity<Article> show(@PathVariable Long id) {
+        Article article = articleService.show(id);
+        return (article != null) ?
+                ResponseEntity.ok(article) :
+                ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
 
     // POST: 게시글 생성
     @PostMapping("/api/articles")
