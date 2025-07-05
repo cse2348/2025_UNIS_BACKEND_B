@@ -35,7 +35,7 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    @CacheEvict(value = {"article", "popularArticles"}, key = "#id", allEntries = true)
+    @CacheEvict(value = {"article", "popularArticles"}, allEntries = true)
     public Article update(Long id, ArticleForm dto) {
         Article target = articleRepository.findById(id).orElse(null);
         if (target != null) {
@@ -45,7 +45,7 @@ public class ArticleService {
         return null;
     }
 
-    @CacheEvict(value = {"article", "popularArticles"}, key = "#id", allEntries = true)
+    @CacheEvict(value = {"article", "popularArticles"}, allEntries = true)
     public Article delete(Long id) {
         Article target = articleRepository.findById(id).orElse(null);
         if (target != null) {

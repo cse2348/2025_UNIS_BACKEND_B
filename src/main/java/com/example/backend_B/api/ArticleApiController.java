@@ -22,21 +22,20 @@ public class ArticleApiController {
     @Autowired
     private ArticleService articleService;
 
-    // 🔹 인기 게시글 상위 5개 조회 (추가된 API)
-    @GetMapping("/api/popular")
+    // 🔹 인기 게시글 상위 5개 조회 (Redis 캐시 적용됨)
+    @GetMapping("/api/posts/popular")
     public List<Article> getPopularArticles() {
         return articleService.getPopularArticles();
     }
 
-
-    // GET: 전체 목록
-    @GetMapping("/api/articles")
+    // GET: 전체 게시글 목록
+    @GetMapping("/api/posts")
     public List<Article> index() {
         return articleService.index();
     }
 
-    // GET: 단일 게시글 (Redis 캐시 적용됨)
-    @GetMapping("/api/articles/{id}")
+    // GET: 단일 게시글 조회 (Redis 캐시 적용)
+    @GetMapping("/api/posts/{id}")
     public ResponseEntity<Article> show(@PathVariable Long id) {
         Article article = articleService.show(id);
         return (article != null) ?
@@ -44,9 +43,8 @@ public class ArticleApiController {
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-
     // POST: 게시글 생성
-    @PostMapping("/api/articles")
+    @PostMapping("/api/posts")
     public ResponseEntity<Article> create(@RequestBody ArticleForm dto) {
         Article created = articleService.create(dto);
         return (created != null) ?
@@ -55,7 +53,7 @@ public class ArticleApiController {
     }
 
     // PATCH: 게시글 수정
-    @PatchMapping("/api/articles/{id}")
+    @PatchMapping("/api/posts/{id}")
     public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto) {
         Article updated = articleService.update(id, dto);
         return (updated != null) ?
@@ -63,8 +61,8 @@ public class ArticleApiController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    //DELETE: 게시글 삭제
-    @DeleteMapping("/api/articles/{id}")
+    // DELETE: 게시글 삭제
+    @DeleteMapping("/api/posts/{id}")
     public ResponseEntity<Article> delete(@PathVariable Long id) {
         Article deleted = articleService.delete(id);
         return (deleted != null) ?
@@ -73,7 +71,7 @@ public class ArticleApiController {
     }
 
     // 트랜잭션 테스트
-    @PostMapping("/api/transaction-test")
+    @PostMapping("/api/posts/transaction-test")
     public ResponseEntity<List<Article>> transactionTest(@RequestBody List<ArticleForm> dtos) {
         List<Article> createdList = articleService.createArticles(dtos);
         return (createdList != null) ?

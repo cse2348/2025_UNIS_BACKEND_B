@@ -1,6 +1,6 @@
 {{>layouts/header}}
 
-<form class="container" action="/articles/create" method="post">
+<form class="container" action="/posts/create" method="post">
     <div class="mb-3">
         <label class="form-label">제목</label>
         <input type="text" class="form-control" name="title" required>
@@ -14,7 +14,7 @@
         <input type="text" class="form-control" name="author" required>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="/articles">Back</a>
+    <a href="/posts">Back</a>
 </form>
 
 {{>layouts/footer}}
