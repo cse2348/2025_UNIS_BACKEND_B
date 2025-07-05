@@ -29,12 +29,13 @@ public class ArticleService {
         return articleRepository.findById(id).orElse(null);
     }
 
+    @CacheEvict(value = {"popularArticles"}, allEntries = true)
     public Article create(ArticleForm dto) {
         Article article = dto.toEntity();
         return articleRepository.save(article);
     }
 
-    @CacheEvict(value = "article", key = "#id")
+    @CacheEvict(value = {"article", "popularArticles"}, key = "#id", allEntries = true)
     public Article update(Long id, ArticleForm dto) {
         Article target = articleRepository.findById(id).orElse(null);
         if (target != null) {
@@ -44,7 +45,7 @@ public class ArticleService {
         return null;
     }
 
-    @CacheEvict(value = "article", key = "#id")
+    @CacheEvict(value = {"article", "popularArticles"}, key = "#id", allEntries = true)
     public Article delete(Long id) {
         Article target = articleRepository.findById(id).orElse(null);
         if (target != null) {
@@ -55,6 +56,7 @@ public class ArticleService {
     }
 
     @Transactional
+    @CacheEvict(value = {"popularArticles"}, allEntries = true)
     public List<Article> createArticles(List<ArticleForm> dtos) {
         return dtos.stream()
                 .map(ArticleForm::toEntity)
@@ -62,8 +64,9 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-    // 인기 게시글 상위 5개 조회
+    @Cacheable(value = "popularArticles")
     public List<Article> getPopularArticles() {
+        log.info("DB에서 인기 게시글 조회 후 캐시 저장");
         return articleRepository.findTop5ByOrderByViewsDesc();
     }
 }
