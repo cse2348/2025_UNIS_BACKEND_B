@@ -16,7 +16,7 @@
     </tr>
     </thead>
     <tbody>
-    {{#articleList}}
+    {{#postList}}
         <tr>
             <th>{{id}}</th>
             <td><a href="/posts/{{id}}">{{title}}</a></td>
@@ -25,9 +25,9 @@
             <td>{{createdAt}}</td>
             <td>{{views}}</td>
         </tr>
-    {{/articleList}}
+    {{/postList}}
     </tbody>
 </table>
 
-<a href="/posts/new">New Article</a>
+<a href="/posts/new">New Post</a>
 {{>layouts/footer}}

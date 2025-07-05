@@ -9,9 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Getter
-@Setter
 @Entity
-public class Article {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +35,9 @@ public class Article {
         this.views++;
     }
 
-    public void patch(Article article) {
-        if (article.title != null) this.title = article.title;
-        if (article.content != null) this.content = article.content;
-        if (article.author != null) this.author = article.author;
+    public void patch(Post post) {
+        if (post.title != null) this.title = post.title;
+        if (post.content != null) this.content = post.content;
+        if (post.author != null) this.author = post.author;
     }
 }

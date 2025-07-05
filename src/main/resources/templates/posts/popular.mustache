@@ -1,6 +1,7 @@
 {{>layouts/header}}
 
 <h2>인기 게시글 Top 5</h2>
+
 <table class="table">
     <thead>
     <tr>
@@ -8,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    {{#articleList}}
+    {{#postList}}
         <tr>
             <th>{{id}}</th>
             <td><a href="/posts/{{id}}">{{title}}</a></td>
@@ -17,10 +18,10 @@
             <td>{{createdAt}}</td>
             <td>{{views}}</td>
         </tr>
-    {{/articleList}}
+    {{/postList}}
     </tbody>
 </table>
 
-<a href="/posts/new">New Article</a>
+<a href="/posts/new" class="btn btn-primary mt-3">새 게시글 작성</a>
 
 {{>layouts/footer}}
