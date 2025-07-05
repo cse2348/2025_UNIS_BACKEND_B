@@ -3,11 +3,15 @@
 <form class="container" action="/articles/create" method="post">
     <div class="mb-3">
         <label class="form-label">제목</label>
-        <input type="text" class="form-control" name="title">
+        <input type="text" class="form-control" name="title" required>
     </div>
     <div class="mb-3">
         <label class="form-label">내용</label>
-        <textarea class="form-control" rows="3" name="content"></textarea>
+        <textarea class="form-control" rows="3" name="content" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">작성자</label>
+        <input type="text" class="form-control" name="author" required>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <a href="/articles">Back</a>
