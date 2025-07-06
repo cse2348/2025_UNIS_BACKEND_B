@@ -20,25 +20,27 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    // 전체 게시글 목록 조회
     public List<Post> index() {
         return postRepository.findAll();
     }
 
-    // 단일 게시글 조회 (Redis 캐시 적용)
-    @Cacheable(value = "post", key = "#id")
+    // 단일 게시글 조회 + 조회수 증가 + 캐시 무효화
+    @CacheEvict(value = {"post", "popularPosts"}, allEntries = true)
     public Post show(Long id) {
-        return postRepository.findById(id).orElse(null);
+        Post post = postRepository.findById(id).orElse(null);
+        if (post != null) {
+            post.incrementViews();         // 조회수 증가
+            postRepository.save(post);     // DB에 반영
+        }
+        return post;
     }
 
-    // 게시글 생성 시 인기 캐시 초기화
     @CacheEvict(value = {"popularPosts"}, allEntries = true)
     public Post create(PostForm dto) {
         Post post = dto.toEntity();
         return postRepository.save(post);
     }
 
-    // 게시글 수정 시 캐시 초기화
     @CacheEvict(value = {"post", "popularPosts"}, allEntries = true)
     public Post update(Long id, PostForm dto) {
         Post target = postRepository.findById(id).orElse(null);
@@ -49,7 +51,6 @@ public class PostService {
         return null;
     }
 
-    // 게시글 삭제 시 캐시 초기화
     @CacheEvict(value = {"post", "popularPosts"}, allEntries = true)
     public Post delete(Long id) {
         Post target = postRepository.findById(id).orElse(null);
@@ -60,7 +61,6 @@ public class PostService {
         return null;
     }
 
-    // 트랜잭션을 이용한 다수 게시글 생성 (캐시 초기화 포함)
     @Transactional
     @CacheEvict(value = {"popularPosts"}, allEntries = true)
     public List<Post> createArticles(List<PostForm> dtos) {
@@ -70,7 +70,6 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    // 인기 게시글 조회 (Redis 캐시 적용)
     @Cacheable(value = "popularPosts")
     public List<Post> getPopularPosts() {
         log.info("DB에서 인기 게시글 조회 후 캐시 저장");
