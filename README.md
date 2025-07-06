@@ -18,7 +18,6 @@ Spring Boot 기반의 게시글 API 서버입니다. Redis 캐싱을 활용한 �
 ### DevOps
 - Docker
 - Amazon EC2
-- Amazon ECR
 - GitHub Actions (CI/CD)
 
 ---
@@ -38,6 +37,6 @@ Spring Boot 기반의 게시글 API 서버입니다. Redis 캐싱을 활용한 �
 
 ---
 
-## Postman 테스트 예시
+## Postman 테스트
 
-### 1. 게시글 등록 (POST)
+[### 1. 게시글 등록 (POST)](https://backend-team-b.postman.co/workspace/backend-team-B-Workspace~9849a43a-ce76-428e-897a-761e6f56309d/collection/46095284-34354838-b9bd-4114-8731-c98300802b57?action=share&source=copy-link&creator=46095284)
