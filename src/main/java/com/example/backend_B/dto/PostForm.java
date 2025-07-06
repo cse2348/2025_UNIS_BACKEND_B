@@ -15,4 +15,9 @@ public class PostForm {
     public Post toEntity() {
         return new Post(id, title, content, author, null, 0);
     }
+
+    public Long getId() { return id; }
+    public String getTitle() { return title; }
+    public String getContent() { return content; }
+    public String getAuthor() { return author; }
 }
