@@ -2,7 +2,7 @@ name: Deploy to EC2  # 이 워크플로우의 이름. GitHub Actions 탭에 표�
 
 on:
   push:
-    branches: [ "main" ]  # main 브랜치에 push될 때만 이 워크플로우가 실행됨
+    branches: [ "master" ]  #main 브랜치에 push될 때만 이 워크플로우가 실행됨
 
 jobs:
   deploy:
@@ -14,13 +14,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4  # 현재 저장소의 코드를 가져옴 (필수 단계)
+        uses: actions/checkout@v4  #현재 저장소의 코드를 가져옴 (필수 단계)
 
       - name: Set up JDK
         uses: actions/setup-java@v4  # Java 빌드 환경을 설정함
         with:
           distribution: 'temurin'
-          java-version: '17'  # Java 17 버전을 사용함 (Dockerfile과 일치해야 함)
+          java-version: '17'  # Java 21 버전을 사용함 (Dockerfile과 일치해야 함)
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
@@ -35,7 +35,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          IMAGE_URI=888042016323.dkr.ecr.ap-northeast-2.amazonaws.com/be-study:latest  # 사용할 Docker 이미지 태그 정의
+          IMAGE_URI=228041307119.dkr.ecr.ap-northeast-2.amazonaws.com/backend-b-repo:latest  # 사용할 Docker 이미지 태그 정의
           docker build -t $IMAGE_URI .  # 현재 디렉토리(.)에 있는 Dockerfile을 기준으로 이미지 빌드
           docker push $IMAGE_URI  # 빌드한 이미지를 ECR에 push (업로드)
 
@@ -46,15 +46,14 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cat <<EOF > .env
-            SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}
-            SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}
-            SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-            EOF
+            echo "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}" > .env
+            echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
+            echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> .env
+
             docker stop app || true && docker rm app || true
-            docker pull 888042016323.dkr.ecr.ap-northeast-2.amazonaws.com/be-study:latest
+            docker pull 228041307119.dkr.ecr.ap-northeast-2.amazonaws.com/backend-b-repo:latest
             docker run -d \
               --name app \
               --env-file .env \
               -p 8080:8080 \
-              888042016323.dkr.ecr.ap-northeast-2.amazonaws.com/be-study:latest
+              228041307119.dkr.ecr.ap-northeast-2.amazonaws.com/backend-b-repo:latest
