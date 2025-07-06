@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import java.io.Serializable;
 
 import java.time.LocalDateTime;
 
@@ -13,10 +14,13 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Entity
-public class Article {
+@Table(name = "article") // 실제 DB 테이블명과 정확히 일치시켜야 함
+public class Post implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private String title;
     private String content;
@@ -37,15 +41,15 @@ public class Article {
         this.views+= 1; //조회수 증가 메서드
     }
 
-    public void patch(Article article) {
-        if (article.title != null) {
-            this.title = article.title;
+    public void patch(Post post) {
+        if (post.title != null) {
+            this.title = post.title;
         }
-        if (article.content != null) {
-            this.content = article.content;
+        if (post.content != null) {
+            this.content = post.content;
         }
-        if (article.author != null) {
-            this.author= article.author;
+        if (post.author != null) {
+            this.author= post.author;
         }
     }
 
