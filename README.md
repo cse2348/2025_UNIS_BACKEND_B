@@ -24,6 +24,7 @@ Spring Boot 기반의 게시글 API 서버입니다. Redis 캐싱을 활용한 �
 ---
 
 ## ERD (Entity Relationship Diagram)
+![image](https://github.com/user-attachments/assets/56fef9de-8aed-4e5c-9e36-872df70bdd8e)
 
 
 ---
